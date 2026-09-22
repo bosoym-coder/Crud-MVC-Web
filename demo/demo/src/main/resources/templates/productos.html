@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Garaje - Productos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #15151e; color: #ffffff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .navbar-f1 { background-color: #000000; border-bottom: 4px solid #e10600; }
+        h2 { font-weight: 800; font-style: italic; text-transform: uppercase; }
+        .btn-f1 { background-color: #e10600; color: white; font-weight: bold; border: none; border-radius: 0; }
+        .btn-f1:hover { background-color: #b30500; color: white; }
+        .table-f1 { border-color: #333; }
+        .table-f1 thead th { background-color: #e10600; color: white; font-style: italic; border-bottom: none; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-f1">
+        <div class="container">
+            <a class="navbar-brand fw-bold fst-italic" href="/">🏎️ F1 SYSTEM</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto text-uppercase fw-bold">
+                    <li class="nav-item"><a class="nav-link" href="/productos">Productos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/clientes">Clientes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/empleados">Empleados</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-4">
+        <a href="/" class="btn btn-f1 mb-4">◀ Volver a Boxes</a>
+
+        <div class="card bg-dark text-white border-secondary mb-4 p-4 shadow">
+            <h4 class="fst-italic text-uppercase text-danger mb-3">Registrar Nueva Pieza</h4>
+            <form action="/guardarProducto" method="POST">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label class="form-label text-secondary fw-bold">ID de Pieza</label>
+                        <input type="number" name="id" class="form-control bg-dark text-white border-secondary" required>
+                    </div>
+                    <div class="col-md-5">
+                        <label class="form-label text-secondary fw-bold">Nombre</label>
+                        <input type="text" name="nombre" class="form-control bg-dark text-white border-secondary" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label text-secondary fw-bold">Precio (Q)</label>
+                        <input type="number" step="0.01" name="precio" class="form-control bg-dark text-white border-secondary" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-f1 mt-4">Guardar Registro</button>
+            </form>
+        </div>
+
+        <h2>Catálogo de Piezas (Productos)</h2>
+        <table class="table table-dark table-striped table-f1 mt-3">
+            <thead>
+                <tr><th>ID</th><th>Pieza</th><th>Precio</th></tr>
+            </thead>
+            <tbody>
+                <tr th:each="p : ${productos}">
+                    <td th:text="${p.id}"></td>
+                    <td th:text="${p.nombre}"></td>
+                    <td th:text="'Q ' + ${p.precio}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
